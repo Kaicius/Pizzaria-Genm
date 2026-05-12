@@ -4,27 +4,90 @@ generator client {
 
 datasource db {
   provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
-model User {
+model user {
+  id        Int           @id @default(autoincrement())
+  nome      String
+  sobrenome String
+  email     String        @unique
+  senha     String
+  role      String        @default("USER")
+  pedido    pedidos[]
+  createdAt DateTime      @default(now())
+  resets    reset_senha[]
+}
+
+model administrador {
+  ADM_ID    Int     @id @default(autoincrement())
+  ADM_NOME  String  @unique
+  ADM_EMAIL String  @unique
+  ADM_SENHA String
+  ADM_ATIVO Boolean @default(true)
+  role      String  @default("ADMINISTRADOR")
+}
+
+model reset_senha {
   id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
-  role      Role     @default(USER)
+  id_user   Int
+  user      user     @relation(fields: [id_user], references: [id])
+  token     String
+  expira_em DateTime
   createdAt DateTime @default(now())
 }
 
-enum Role {
-  USER
-  ADMIN
+model produto {
+  id            Int        @id @default(autoincrement())
+  nome          String
+  descricao     String
+  preco         Decimal    @db.Decimal(10, 2)
+  estoque       Int
+  categoria     String
+  item_cardapio cardapio[]
+  receita       receita[]
+  updatedAt     DateTime   @updatedAt
 }
 
-model Produto {
-    id Int @id @default(autoincrement())
-    nome String
-    descricao String
-    preco Decimal
-    quantidade Int
-    updatedAt DateTime @updatedAt
+model pedidos {
+  id        Int        @id @default(autoincrement())
+  id_user   Int
+  user      user       @relation(fields: [id_user], references: [id])
+  total     Decimal    @db.Decimal(10, 2)
+  status    status     @default(PENDENTE)
+  items     cardapio[]
+  createdAt DateTime   @default(now())
+}
+
+model cardapio {
+  id         Int     @id @default(autoincrement())
+  id_pedido  Int
+  pedido     pedidos @relation(fields: [id_pedido], references: [id])
+  id_produto Int
+  produtos   produto @relation(fields: [id_produto], references: [id])
+  quantidade Int
+  precoFixo  Decimal @db.Decimal(10, 2)
+}
+
+enum status {
+  PENDENTE
+  PREPARANDO
+  ENTREGUE
+  CANCELADO
+}
+
+model ingrediente {
+  id      Int       @id @default(autoincrement())
+  nome    String    @unique
+  estoque Int
+  receita receita[]
+}
+
+model receita {
+  id             Int         @id @default(autoincrement())
+  id_produto     Int
+  produto        produto     @relation(fields: [id_produto], references: [id])
+  id_ingrediente Int
+  ingrediente    ingrediente @relation(fields: [id_ingrediente], references: [id])
+  quantidade     String
 }
