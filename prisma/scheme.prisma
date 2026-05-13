@@ -89,5 +89,6 @@ model receita {
   produto        produto     @relation(fields: [id_produto], references: [id])
   id_ingrediente Int
   ingrediente    ingrediente @relation(fields: [id_ingrediente], references: [id])
-  quantidade     String
+  quantidade_uso     String
+  quantidade  Int
 }

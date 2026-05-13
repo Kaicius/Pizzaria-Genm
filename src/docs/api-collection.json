@@ -1,0 +1,1062 @@
+{
+  "info": {
+    "_postman_id": "3b2db007-4dcc-4ce8-a2cb-6f75fc52a3bb",
+    "name": "New Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52699429"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Cadastrar como usuario",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"nome\": \"Kaio\",\r\n    \"sobrenome\": \"Alves\",\r\n    \"senha\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/user/cadastro",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "user",
+                "cadastro"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login Usuario",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"senha\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/user/login",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "user",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"senha\": \"123456\"\r\n}"
+            },
+            "url": {
+              "raw": "localhost:3000/user/logout",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "user",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Pedir codigo OTP",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"test@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/user/login/esqueci-a-senha",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "user",
+                "login",
+                "esqueci-a-senha"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Confirmar codigo OTP recebido",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"codigo\": \"394942\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/user/login/esqueci-a-senha-confirmar",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "user",
+                "login",
+                "esqueci-a-senha-confirmar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Resetar Senha",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"senha1\": \"1234567\",\r\n    \"senha2\": \"1234567\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/user/login/alterar-senha",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "user",
+                "login",
+                "alterar-senha"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "This folder contains all authentication-related endpoints for the application, including user login and logout. It also covers the full password recovery flow via OTP: requesting an OTP code, confirming the received code, and resetting the password. Use these endpoints to manage user sessions and handle secure account recovery."
+    },
+    {
+      "name": "Adm",
+      "item": [
+        {
+          "name": "Home ADM",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"senha\": \"123456\"\r\n}"
+            },
+            "url": {
+              "raw": "localhost:3000/adm/",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login ADM",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"user\": \"admin1\",\r\n    \"senha\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/adm/login",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cadastrar ADM",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"admin2\",\r\n    \"email\": \"admin2@teste.com\",\r\n    \"senha\": \"123456\",\r\n    \"ativo\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/adm/listar/adm/cadastrar",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "adm",
+                "cadastrar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cadastrar ADM Debug",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"admin1\",\r\n    \"email\": \"admin@teste.com\",\r\n    \"senha\": \"123456\",\r\n    \"ativo\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/adm/listar/adm/cadastrar/debug",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "adm",
+                "cadastrar",
+                "debug"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout ADM",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id_produto\": 1,\r\n    \"id_ingrediente\": 1, \r\n    \"quantidade\": \"350g\"\r\n}"
+            },
+            "url": {
+              "raw": "localhost:3000/adm/logout",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar ADM",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/adm/listar/adm",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "adm"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar ADM (especifico)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/adm/listar/adm/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "adm",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Editar ADM",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"admin2\",\r\n    \"email\": \"admin2@teste.com\",\r\n    \"senha\": \"123456\",\r\n    \"ativo\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/adm/listar/adm/editar/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "adm",
+                "editar",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Excluir ADM",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"admin2\",\r\n    \"email\": \"admin2@teste.com\",\r\n    \"senha\": \"123456\",\r\n    \"ativo\": false\r\n}"
+            },
+            "url": {
+              "raw": "localhost:3000/adm/listar/adm/excluir/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "adm",
+                "excluir",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ver o financeiro",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"user\": \"admin1\",\r\n    \"senha\": \"123456\"\r\n}"
+            },
+            "url": {
+              "raw": "localhost:3000/adm/financeiro",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "financeiro"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Restocar Produto",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"quantidade_nova\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/adm/restocar/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "restocar",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cadastrar ingredientes",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"Farinha de Trigo\",\r\n    \"estoque\": 10\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/adm/listar/ingrediente/cadastrar",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "ingrediente",
+                "cadastrar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar ingredientes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/adm/listar/ingrediente",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "ingrediente"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar ingrediente (especifico)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/adm/listar/ingrediente/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "ingrediente",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Editar ingrediente",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"Farinha de Trigo\",\r\n    \"estoque\": \"10\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/adm/listar/ingrediente/editar/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "ingrediente",
+                "editar",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cadastrar receita",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id_produto\": 1,\r\n    \"id_ingrediente\": 1, \r\n    \"quantidade\": \"350g\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/adm/listar/receita/cadastrar",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "receita",
+                "cadastrar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar receitas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/adm/listar/receitas",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "receitas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar receita (especifica)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/adm/listar/receita/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "receita",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Editar receita",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/adm/listar/receita/editar/1",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "receita",
+                "editar",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Excluir item de uma receita",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/adm/listar/receita/excluir/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "receita",
+                "excluir",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Excluir receita",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/adm/listar/receita/excluir/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "receita",
+                "excluir",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cadastrar produto",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"Pizza Mussarela MED + Coca-Cola 2L\",\r\n    \"descricao\": \"Uma deciliosa pizza de mussarela com acompanhada de uma coca 2L\",\r\n    \"preco\": 119.99,\r\n    \"estoque\": 10,\r\n    \"categoria\": \"COMBO\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/adm/listar/produto/cadastrar",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "produto",
+                "cadastrar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Produtos",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id_produto\": 1,\r\n    \"id_ingrediente\": 1, \r\n    \"quantidade\": \"350g\"\r\n}"
+            },
+            "url": {
+              "raw": "localhost:3000/adm/listar/produtos",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "produtos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar produto (especifico)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/adm/listar/receita/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "receita",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Editar produto",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"Pizza Mussarela MED + Coca-Cola 2L\",\r\n    \"descricao\": \"Uma deciliosa pizza de mussarela com acompanhada de uma coca 2L\",\r\n    \"preco\": 119.99,\r\n    \"estoque\": 10,\r\n    \"categoria\": \"COMBO\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/adm/listar/produto/editar/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "produto",
+                "editar",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Excluir produto",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"Pizza Mussarela MED + Coca-Cola 2L\",\r\n    \"descricao\": \"Uma deciliosa pizza de mussarela com acompanhada de uma coca 2L\",\r\n    \"preco\": 119.99,\r\n    \"estoque\": 10,\r\n    \"categoria\": \"COMBO\"\r\n}"
+            },
+            "url": {
+              "raw": "localhost:3000/adm/listar/produto/excluir/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "adm",
+                "listar",
+                "produto",
+                "excluir",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Pizzaria",
+      "item": [
+        {
+          "name": "Home Pizzaria",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ver cardapio",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id_produto\": 1,\r\n    \"id_ingrediente\": 1, \r\n    \"quantidade\": \"350g\"\r\n}"
+            },
+            "url": {
+              "raw": "localhost:3000/cardapio",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "cardapio"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Meus pedidos",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id_produto\": 1,\r\n    \"id_ingrediente\": 1, \r\n    \"quantidade\": \"350g\"\r\n}"
+            },
+            "url": {
+              "raw": "localhost:3000/meus-pedidos",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "meus-pedidos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Fazer pedido",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"itens\": [\r\n    {\r\n      \"id_produto\": 1,\r\n      \"quantidade\": 2\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/pedido",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "pedido"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancelar pedido",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id_produto\": 1,\r\n    \"id_ingrediente\": 1, \r\n    \"quantidade\": \"350g\"\r\n}"
+            },
+            "url": {
+              "raw": "localhost:3000/cancelar/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "cancelar",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

@@ -11,7 +11,7 @@ const options = {
         info: {
             title: 'Gemn Pizzaria API',
             version: '1.0.0',
-            description: 'Documentação da API'
+            description: 'Documentação da API da pizzaria Gemn'
         },
         servers: [
             {
