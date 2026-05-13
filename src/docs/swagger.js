@@ -9,9 +9,9 @@ const options = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: 'Gemn Pizzaria API',
+            title: 'Genm Pizzaria API',
             version: '1.0.0',
-            description: 'Documentação da API da pizzaria Gemn'
+            description: 'Documentação da API da pizzaria Genm'
         },
         servers: [
             {
