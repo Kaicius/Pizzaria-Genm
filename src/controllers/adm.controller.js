@@ -242,10 +242,10 @@ export async function excluir_adm(req, res) {
 // CADASTRO RECEITA
 
 export async function cadastrar_receita(req, res) {
-    const { id_produto, id_ingrediente, quantidade } = req.body
+    const { id_produto, id_ingrediente, quantidade, quantidade_uso } = req.body
 
     try {
-        if (!id_produto || !id_ingrediente || !quantidade) {
+        if (!id_produto || !id_ingrediente || !quantidade || !quantidade_uso) {
             return res.status(200).send({
                 mensagem: "Todos os campos são obrigatorios"
             })
@@ -255,7 +255,8 @@ export async function cadastrar_receita(req, res) {
             data: {
                 id_produto: id_produto,
                 id_ingrediente: id_ingrediente,
-                quantidade: quantidade
+                quantidade: quantidade,
+                quantidade_uso: quantidade_uso
             } 
         })
 
@@ -268,6 +269,136 @@ export async function cadastrar_receita(req, res) {
         return res.status(500).send({
             mensagem: "Erro interno do servidor"
         })
+    }
+}
+
+// LISTAR RECEITA
+
+export async function listar_receitas(req, res) {
+    try {
+        const dados = await prisma.receita.findMany()
+
+        return res.status(200).send(dados)
+    } catch (error) {
+        console.log("Erro ao listar receitas:", error);
+        return res.status(500).send({
+            mensagem: "Erro interno do servidor"
+        })
+    }
+}
+
+// LISTAR RECEITA ESPECIFICA
+
+export async function listar_receita_esp(req, res) {
+    const id_receita = Number(req.params.id)
+
+    try {
+        if (!id_receita) {
+            return res.status(404).send("Id não encontrado")
+        }
+
+        const receita = await prisma.receita.findMany({
+            where: { id: id_receita }
+        })
+
+        return res.status(200).send({
+            receita: receita
+        })
+    } catch (error) {
+        console.error("erro ao listar a receita", error);
+        return res.status(500).send({
+            mensagem: "Erro interno do servidor"
+        })
+    }
+}
+
+// EDITAR RECEITA
+
+export async function editar_receita(req, res) {
+    const id_receita = Number(req.params.id)
+    const { quantidade, quantidade_uso } = req.body
+
+    try {
+        if (!id_receita) {
+            return res.status(404).send("Id não encontrado")
+        }
+
+        if (quantidade === undefined && !quantidade_uso) {
+            return res.status(400).send({
+                mensagem: "Esses campos são obrigatorios"
+            })
+        }
+
+        const receita_atualizada = await prisma.receita.update({
+            where: { id: id_receita },
+            data: {
+                quantidade: quantidade,
+                quantidade_uso: quantidade_uso.trim()
+            }
+        })
+
+        return res.status(200).send({
+            mensagem: "Item da receita atualizado",
+            nova_receita: receita_atualizada
+        })
+    } catch (error) {
+        console.log("Erro ao editar a receita:", error);
+        return res.status(500).send({
+            mensagem: "Erro interno do servidor"
+        });
+    }
+}
+
+// EXCLUIR ITEM DA RECEITA
+
+export async function excluir_item_receita(req, res) {
+    const id = Number(req.params.id)
+    
+    try {
+        if (!id) {
+            return res.status(404).send("Id não encontrado")
+        }
+        await prisma.receita.delete({
+            where: { id }
+        })
+        return res.status(200).send({
+            mensagem: "item removido da receita"
+        })
+    } catch (error) {
+        console.log("Erro ao excluir item da receita:", error);
+        return res.status(500).send({
+            mensagem: "Erro interno do servidor"
+        });
+    }
+}
+
+// EXCLUIR RECEITA
+
+export async function excluir_receita(req, res) {
+    const id_receita = Number(req.params.id)
+
+    try {
+        if (!id_receita) {
+            return res.status(404).send("Id não encontrado")
+        }
+
+        await prisma.receita.delete({
+            where: { id: id_receita }
+        })
+
+        return res.status(200).send({
+            mensagem: "Receita excluido com sucesso"
+        })
+    } catch (error) {
+        if (error.code === 'P2003') {
+            return res.status(400).send({
+                mensagem: "Não é possível excluir: esta receita já possui ingredientes ou pedidos vinculados."
+            });
+        }
+        console.log("Erro ao excluir uma receita:", error);
+        return res.status(500).send({
+            mensagem: "Erro interno do servidor"
+        });
     }
 }
 
@@ -299,6 +430,103 @@ export async function cadastrar_ingrediente(req, res) {
     }
 }
 
+// EDITAR INGREDIENTE
+
+export async function editar_ingrediente(req, res) {
+    const { nome, estoque } = req.body
+    const id_ingrediente =  Number(req.params.id)
+
+    try {
+        if (!id_ingrediente) {
+            return res.status(404).send("Id não encontrado")
+        }
+
+        const atualizado = await prisma.ingrediente.update({
+            where: { id: id_ingrediente },
+            data: {
+                nome: nome.trim(),
+                estoque: estoque !== undefined ? Number(estoque) :undefined
+            }
+        })
+
+        return res.status(200).send(atualizado)
+    } catch (error) {
+        console.log("Erro editar ingrediente:", error);
+        return res.status(500).send({
+            mensagem: "Erro interno do servidor"
+        })
+    }
+}
+
+// LISTAR INGREDIENTE
+
+export async function listar_ingredientes(req, res) {
+    try {
+        const dados = await prisma.ingrediente.findMany()
+
+        return res.status(200).send(dados)
+    } catch (error) {
+        console.log("Erro ao listar ingredientes:", error);
+        return res.status(500).send({
+            mensagem: "Erro interno do servidor"
+        })
+    }
+}
+
+// LISTAR INGREDIENTE ESPECIFICO
+
+export async function listar_ingredientes_esp(req, res) {
+    const id_ingrediente = Number(req.params.id)
+
+    try {
+        if (!id_ingrediente) {
+            return res.status(404).send("Id não encontrado")
+        }
+
+        const ingrediente = await prisma.ingrediente.findMany({
+            where: { id: id_ingrediente }
+        })
+
+        return res.status(200).send({
+            ingrediente: ingrediente
+        })
+    } catch (error) {
+        console.error("erro ao listar o ingrediente", error);
+        return res.status(500).send({
+            mensagem: "Erro interno do servidor"
+        })
+    }
+}
+
+// EXCLUIR INGREDIENTE
+
+export async function excluir_ingrediente(req, res) {
+    const id_ingrediente = Number(req.params.id)
+
+    try {
+        if (!id_ingrediente) {
+            return res.status(404).send("Id não encontrado")
+        }
+
+        await prisma.ingrediente.delete({
+            where: { id: id_ingrediente }
+        })
+
+        return res.status(200).send({
+            mensagem: "Ingrediente excluido com sucesso"
+        })
+    } catch (error) {
+        if (error.code === 'P2003') {
+            return res.status(400).send({
+                mensagem: "Não é possível excluir: este ingrediente já possui receitas ou pedidos vinculados."
+            });
+        }
+        console.log("Erro ao excluir um ingreidente:", error);
+        return res.status(500).send({
+            mensagem: "Erro interno do servidor"
+        });
+    }
+}
 
 // CADASTRAR PRODUTO
 
@@ -360,6 +588,31 @@ export async function listar_produtos(req, res) {
     }
 }
 
+// LISTAR PRODUTO ESPECIFICO
+
+export async function listar_produto_esp(req, res) {
+    const id_produto = Number(req.params.id)
+
+    try {
+        if (!id_produto) {
+            return res.status(404).send("Id não encontrado")
+        }
+
+        const produto = await prisma.produto.findMany({
+            where: { id: id_produto }
+        })
+
+        return res.status(200).send({
+            produto: produto
+        })
+    } catch (error) {
+        console.error("erro ao listar o produto", error);
+        return res.status(500).send({
+            mensagem: "Erro interno do servidor"
+        })
+    }
+}
+
 // EDITAR PRODUTO
 
 export async function editar_produto(req, res) {
@@ -379,6 +632,10 @@ export async function editar_produto(req, res) {
             return res.status(400).send({
                 mensagem: "categoria precisa ser 'pizza', 'bebida' ou 'combo' "
             })
+        }
+
+        if (!id_produto) {
+            return res.status(404).send("Id não encontrado")
         }
 
         const produto_atualizado = await prisma.produto.update({
@@ -411,14 +668,8 @@ export async function excluir_produto(req, res) {
     const id_produto = Number(req.params.id)
 
     try {
-        const existe = await prisma.produto.findUnique({
-            where: { id: id_produto }
-        })
-
-        if (!existe) {
-            return res.status(404).send({
-                mensagem: "Produto não encontrado"
-            })
+        if (!id_produto) {
+            return res.status(404).send("Id não encontrado")
         }
 
         await prisma.produto.delete({

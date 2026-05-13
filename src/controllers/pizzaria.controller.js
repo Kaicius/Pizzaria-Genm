@@ -2,6 +2,14 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { prisma } from '../lib/prisma.js'
 
+// HOME
+
+export async function home(req, res) {
+    return res.status(200).send({
+        pagina: "Home Pizzaria"
+    })
+}
+
 // LISTAR CARDAPIO
 
 export async function listar_cardapio(req, res) {
@@ -82,14 +90,32 @@ export async function restocar_produto(req, res) {
 }
 
 // LISTAR PEDIDOS
+
 export async function listar_pedidos(req, res) {
     const id_user = req.usuarioLogado.id
 
     try {
         const meus_pedidos = await prisma.pedidos.findMany({
-            where: { id_user: id_user },
-            include: {
-                items: { include: { produtos: true } }
+            where: { id_user: id_user,
+                status: { not: 'CANCELADO' }
+            },
+            select: {
+                status: true,
+                items: {
+                    select: {
+                        quantidade: true,
+                        precoFixo: true,
+                        produtos: {
+                            select: {
+                                nome: true,
+                                categoria: true
+                            }
+                        }
+                    }
+                }
+            },
+            orderBy: {
+                createdAt: 'desc'
             }
         })
 
@@ -115,11 +141,10 @@ export async function fazer_pedido(req, res) {
                 where: { id: item.id_produto }
             });
             
-            if (!prod) return res.status(404).send({
-                mensagem: "Produto não encontrado"
-            });
+            if (!prod) return res.status(404).send({ mensagem: "Produto não encontrado" });
+            
             if (prod.estoque < item.quantidade) return res.status(400).send({
-                mensagem: "Item indisponivel no momento, desculpe o transtorno"
+                mensagem: `O item ${prod.nome} está indisponível no momento.`
             });
         }
 
@@ -133,12 +158,15 @@ export async function fazer_pedido(req, res) {
                     include: { ingrediente: true }
                 });
 
-
                 for (const componente of composicao) {
                     const quantidade_necessaria = componente.quantidade * item.quantidade;
 
+                    if (isNaN(quantidade_necessaria)) { 
+                        throw new Error("Erro no cálculo de quantidade dos ingredientes.");
+                    }
+
                     if (componente.ingrediente.estoque < quantidade_necessaria) {
-                        throw new Error("Item indisponivel no momento, desculpe o transtorno");
+                        throw new Error(`Ingrediente ${componente.ingrediente.nome} insuficiente.`);
                     }
 
                     await tx.ingrediente.update({
@@ -174,6 +202,24 @@ export async function fazer_pedido(req, res) {
             });
         });
 
+        setTimeout(async () => {
+            await prisma.pedidos.update({
+                where: { id: resultado.id },
+                data: { status: 'PREPARANDO' }
+            })
+        }, 180000);
+
+        setTimeout(async () => {
+            const pedidoAtual = await prisma.pedidos.findUnique({ where: { id: resultado.id } });
+
+            if (pedidoAtual && pedidoAtual.status !== 'CANCELADO') {
+                await prisma.pedidos.update({
+                    where: { id: resultado.id },
+                    data: { status: 'ENTREGUE' }
+                })
+            }
+        }, 600000);
+
         return res.status(201).send({
             mensagem: "Pedido finalizado com sucesso", 
             pedido: resultado
@@ -182,7 +228,40 @@ export async function fazer_pedido(req, res) {
     } catch (error) {
         console.log("Erro ao fazer o pedido:", error);
         return res.status(400).send({
-            mensagem: error.message || "Erro interno do servidor"
+            mensagem: "Erro interno do servidor"
         });
+    }
+}
+
+// CANCELAR PEDIDO
+
+export async function cancelar_pedido(req, res) {
+    const id_pedido = Number(req.params.id)
+    const id_user = req.usuarioLogado.id
+
+    try {
+        const pedido = await prisma.pedidos.findUnique({
+            where: { id: id_pedido }
+        })
+
+        if (!pedido || pedido.id_user !== id_user) {
+            return res.status(404).send({
+                mensagem: "Pedido não encontrado"
+            })
+        }
+
+        await prisma.pedidos.update({
+            where: { id: id_pedido },
+            data: { status: 'CANCELADO' }
+        })
+
+        return res.status(200).send({
+            mensagem: "Pedido cancelado com sucesso"
+        })
+    } catch (error) {
+        console.log("Erro cancelar pedido:", error);
+        return res.status(500).send({
+            mensagem: "Erro interno do servidor"
+        })
     }
 }
