@@ -17,6 +17,7 @@ O projeto foi construído utilizando as seguintes tecnologias:
 *   **Nodemailer**: Disparo de e-mails para recuperação de senha.
 *   **OTP-Generator**: Geração de códigos temporários para reset de senha.
 *   **Swagger UI Express**: Documentação interativa da API.
+*   **Nodemon**: Servidor local
 
 ### Pré-requisitos
 *   Node.js instalado.
@@ -35,6 +36,8 @@ O projeto foi construído utilizando as seguintes tecnologias:
 *   **swagger-jsdoc**: ^6.2.8
 *   **swagger-ui-express**: ^5.0.1
 
+#### Dev Dependencies
+*   **nodemon**: ^3.1.14
 
 ### Passo a passo
 
@@ -44,13 +47,25 @@ O projeto foi construído utilizando as seguintes tecnologias:
    cd pizzaria-genm
 
 2. **Instale as dependencias**
+   Troque o terminal para cmd e instale as dependencias
    ```cmd
    npm install
 
 4. **Configure as variáveis de ambiente:**
    Crie um arquivo `.env` na raiz do projeto e preencha conforme o exemplo:
    ```env
-   DATABASE_URL="mysql://usuario:senha@localhost:3306/pizzaria_genm"
+   DATABASE_URL="mysql://usuario:senha@localhost:3306/pizzaria"
    JWT_SECRET="sua_chave_secreta_aqui"
    EMAIL_USER="seu-email@gmail.com"
    EMAIL_PASS="sua-senha-de-app"
+
+5. **Abra o servidor:**
+   No seu terminal (cmd) rode o servidor com
+   ```cmd
+   npm run dev
+
+---
+
+## Como Funciona?
+
+Abra http://localhost:3000/docs/#/ dentro do Swagger UI voce podera ver as rotas e suas funcionalidades
