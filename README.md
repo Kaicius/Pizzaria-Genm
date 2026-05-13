@@ -1,6 +1,6 @@
 # Pizzaria Genm - Projeto Final AWC
 
-Projeto de conclusão da disciplina de **Aplicações Web em Camadas**. A Pizzaria Genm é uma API REST robusta que gerencia desde o estoque de ingredientes e receitas técnicas até o ciclo de vida completo de um pedido, incluindo faturamento e automação de status.
+Projeto de conclusão da disciplina de **Aplicações Web em Camadas**. A Pizzaria Genm é uma API REST estruturada em MVC que gerencia desde o estoque de ingredientes e receitas até o ciclo de vida completo de um pedido, incluindo faturamento e automação de status.
 
 ---
 
