@@ -59,7 +59,13 @@ O projeto foi construído utilizando as seguintes tecnologias:
    EMAIL_USER="seu-email@gmail.com"
    EMAIL_PASS="sua-senha-de-app"
 
-5. **Abra o servidor:**
+5. **Configure o banco:**
+   No seu terminal (cmd) configure o prisma com
+   ```cmd
+   npx prisma generate dev
+   npx prisma migration dev --name init
+
+6. **Abra o servidor:**
    No seu terminal (cmd) rode o servidor com
    ```cmd
    npm run dev
