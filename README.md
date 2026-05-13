@@ -43,8 +43,7 @@ O projeto foi construído utilizando as seguintes tecnologias:
 
 1. **Clone o repositório:**
    ```bash
-   git clone [https://github.com/seu-usuario/pizzaria-genm.git](https://github.com/seu-usuario/pizzaria-genm.git)
-   cd pizzaria-genm
+   git clone https://github.com/Kaicius/Pizzaria-Genm.git
 
 2. **Instale as dependencias**
    Troque o terminal para cmd e instale as dependencias
@@ -62,8 +61,8 @@ O projeto foi construído utilizando as seguintes tecnologias:
 5. **Configure o banco:**
    No seu terminal (cmd) configure o prisma com
    ```cmd
-   npx prisma generate dev
-   npx prisma migration dev --name init
+   npx prisma migration dev
+   npx prisma generate
 
 6. **Abra o servidor:**
    No seu terminal (cmd) rode o servidor com
